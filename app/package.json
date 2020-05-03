@@ -1,0 +1,14 @@
+{
+  "name": "travel-assistant",
+  "productName": "Travel Assistant",
+  "version": "0.1.0",
+  "description": "Your personal COVID-19 travel assistant",
+  "main": "./main.prod.js",
+  "author": "Jianxin Qiu @imtsuki",
+  "scripts": {
+    "electron-rebuild": "node -r ../scripts/BabelRegister.js ../scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
