@@ -16,7 +16,7 @@ if (
       ? electronRebuildCmd.replace(/\//g, '\\')
       : electronRebuildCmd;
   execSync(cmd, {
-    cwd: path.join(__dirname, '..', '..', 'app'),
+    cwd: path.join(__dirname, '..', 'app'),
     stdio: 'inherit',
   });
 }
