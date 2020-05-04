@@ -5,7 +5,13 @@ import CardPanel from './CardPanel';
 export default function Home() {
   return (
     <>
-      <Map amapkey={process.env.AMAPKEY} protocol={'https://'} />
+      <Map
+        amapkey={process.env.AMAPKEY}
+        version={'2.0'}
+        protocol={'https://'}
+        plugins={['Scale', 'ToolBar', 'ControlBar']}
+        viewMode="3D"
+      />
       <div
         style={{
           position: 'absolute',

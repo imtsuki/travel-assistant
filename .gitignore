@@ -51,3 +51,4 @@ npm-debug.log.*
 
 # Secrets
 .env
+.npmrc
