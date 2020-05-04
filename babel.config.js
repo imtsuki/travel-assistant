@@ -1,8 +1,10 @@
 const developmentEnvironments = ['development', 'test'];
 
+// eslint-disable-next-line
 const developmentPlugins = [require('react-hot-loader/babel')];
 
 const productionPlugins = [
+  // eslint-disable-next-line
   require('babel-plugin-dev-expression'),
 
   // babel-preset-react-optimize

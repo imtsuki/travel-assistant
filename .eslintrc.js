@@ -4,6 +4,9 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
     'plugin:prettier/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   parserOptions: {
     ecmaVersion: 2018,
@@ -12,9 +15,19 @@ module.exports = {
       jsx: true,
     },
   },
+  plugins: ['import'],
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
   settings: {
     react: {
