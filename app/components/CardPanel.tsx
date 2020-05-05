@@ -13,9 +13,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AssistantOutlinedIcon from '@material-ui/icons/AssistantOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import clsx from 'clsx';
+import log from 'electron-log';
 import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,10 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function getSteps() {
-  return ['北京市', '上海市', '广州市', '深圳市', '杭州市'];
-}
-
 function getStepContent(step: number) {
   switch (step) {
     case 0:
@@ -73,10 +68,11 @@ export default function CardPanel() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
+    log.info('clicked');
     setExpanded(!expanded);
   };
 
-  const steps = getSteps();
+  const steps = ['北京市', '上海市', '广州市', '深圳市', '杭州市'];
 
   return (
     <Card className={classes.root} elevation={4}>
@@ -100,12 +96,6 @@ export default function CardPanel() {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

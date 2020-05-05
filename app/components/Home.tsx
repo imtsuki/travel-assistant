@@ -28,7 +28,6 @@ export default function Home() {
           right: '0px',
           top: '0px',
           padding: '30px',
-          boxSizing: 'border-box',
           maxHeight: '100%',
           overflowY: 'scroll',
         }}
