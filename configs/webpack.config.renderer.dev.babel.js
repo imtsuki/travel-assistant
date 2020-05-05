@@ -8,11 +8,14 @@
 import { spawn, execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+
 import chalk from 'chalk';
 import { TypedCssModulesPlugin } from 'typed-css-modules-webpack-plugin';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
+
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
+
 import baseConfig from './webpack.config.base';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
@@ -35,10 +38,10 @@ const requiredByDLLConfig = module.parent.filename.includes(
 if (!requiredByDLLConfig && !(fs.existsSync(dll) && fs.existsSync(manifest))) {
   console.log(
     chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
+      'The DLL files are missing. Sit back while we build them for you with "yarn build:dll"'
     )
   );
-  execSync('yarn build-dll');
+  execSync('yarn build:dll');
 }
 
 export default merge.smart(baseConfig, {

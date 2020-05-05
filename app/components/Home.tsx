@@ -1,7 +1,9 @@
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import React from 'react';
 import { Map, Markers } from 'react-amap';
+
 import city from '../data/city.json';
+
 import CardPanel from './CardPanel';
 
 export default function Home() {
