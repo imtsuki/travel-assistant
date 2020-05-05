@@ -1,5 +1,7 @@
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import React from 'react';
-import { Map } from 'react-amap';
+import { Map, Markers } from 'react-amap';
+import city from '../data/city.json';
 import CardPanel from './CardPanel';
 
 export default function Home() {
@@ -11,7 +13,14 @@ export default function Home() {
         protocol={'https://'}
         plugins={['Scale', 'ToolBar', 'ControlBar']}
         viewMode="3D"
-      />
+      >
+        <Markers
+          protocol={'https://'}
+          markers={city}
+          render={() => <LocationOnIcon />}
+          offset={{ x: -12, y: -24 }}
+        />
+      </Map>
       <div
         style={{
           position: 'absolute',
