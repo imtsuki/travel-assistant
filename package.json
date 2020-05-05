@@ -19,12 +19,12 @@
     "lint-fix": "yarn --silent lint --fix; exit 0",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
     "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build:dll",
-    "pack": "yarn build && electron-builder build --publish never",
-    "pack:all": "yarn build && electron-builder build -mwl",
-    "pack:ci": "yarn postinstall && yarn build && electron-builder --publish always",
-    "pack:mac": "yarn build && electron-builder build --mac",
-    "pack:linux": "yarn build && electron-builder build --linux",
-    "pack:win": "yarn build && electron-builder build --win --x64"
+    "package": "yarn build && electron-builder build --publish never",
+    "package:all": "yarn build && electron-builder build -mwl",
+    "package:ci": "yarn postinstall && yarn build && electron-builder --publish always",
+    "package:mac": "yarn build && electron-builder build --mac",
+    "package:linux": "yarn build && electron-builder build --linux",
+    "package:win": "yarn build && electron-builder build --win --x64"
   },
   "build": {
     "productName": "Travel Assistant",

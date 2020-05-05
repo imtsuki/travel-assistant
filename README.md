@@ -10,9 +10,9 @@ yarn start:dev
 
 ## Packaging for Production
 
-To package apps for different platforms:
+To package this app for different platforms:
 
 ```bash
-yarn pack:mac
-yarn pack:win
+yarn package:mac
+yarn package:win
 ```
