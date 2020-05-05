@@ -1,11 +1,26 @@
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import React from 'react';
-import { Map } from 'react-amap';
+import { Map, Markers } from 'react-amap';
+import city from '../data/city.json';
 import CardPanel from './CardPanel';
 
 export default function Home() {
   return (
     <>
-      <Map amapkey={process.env.AMAPKEY} protocol={'https://'} />
+      <Map
+        amapkey={process.env.AMAPKEY}
+        version={'2.0'}
+        protocol={'https://'}
+        plugins={['Scale', 'ToolBar', 'ControlBar']}
+        viewMode="3D"
+      >
+        <Markers
+          protocol={'https://'}
+          markers={city}
+          render={() => <LocationOnIcon />}
+          offset={{ x: -24, y: -48 }}
+        />
+      </Map>
       <div
         style={{
           position: 'absolute',
