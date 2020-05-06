@@ -14,6 +14,16 @@ export default {
   module: {
     rules: [
       {
+        test: /\.worker\.ts$/,
+        use: {
+          loader: 'worker-loader',
+          options: {
+            name: '[name]:[hash:8].js',
+            inline: true,
+          },
+        },
+      },
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
@@ -30,6 +40,7 @@ export default {
     path: path.join(__dirname, '..', 'app'),
     // https://github.com/webpack/webpack/issues/1114
     libraryTarget: 'commonjs2',
+    globalObject: 'this',
   },
 
   /**

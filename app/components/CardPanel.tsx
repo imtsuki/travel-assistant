@@ -14,8 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import AssistantOutlinedIcon from '@material-ui/icons/AssistantOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
-import log from 'electron-log';
 import React from 'react';
+
+import MyWorker from './my.worker';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +69,12 @@ export default function CardPanel() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
-    log.info('clicked');
+    const worker = new MyWorker();
+    worker.postMessage({ message: 'Message from main thread' });
+
+    worker.onmessage = function (event: any) {
+      console.log('Received message from worker thread', event.data);
+    };
     setExpanded(!expanded);
   };
 
