@@ -1,138 +1,78 @@
 [
   {
     "name": "北京",
-    "position": { "longitude": "116.3979471", "latitude": "39.9081726" }
-  },
-  {
-    "name": "上海",
-    "position": { "longitude": "121.4692688", "latitude": "31.2381763" }
-  },
-  {
-    "name": "天津",
-    "position": { "longitude": "117.2523808", "latitude": "39.1038561" }
-  },
-  {
-    "name": "重庆",
-    "position": { "longitude": "106.548425", "latitude": "29.5549144" }
-  },
-  {
-    "name": "石家庄",
-    "position": { "longitude": "114.4897766", "latitude": "38.0451279" }
-  },
-  {
-    "name": "太原",
-    "position": { "longitude": "112.5223053", "latitude": "37.8357424" }
-  },
-  {
-    "name": "沈阳",
-    "position": { "longitude": "123.4116821", "latitude": "41.7966156" }
-  },
-  {
-    "name": "长春",
-    "position": { "longitude": "125.3154297", "latitude": "43.8925629" }
-  },
-  {
-    "name": "哈尔滨",
-    "position": { "longitude": "126.6433411", "latitude": "45.7414932" }
-  },
-  {
-    "name": "杭州",
-    "position": { "longitude": "120.1592484", "latitude": "30.265995" }
-  },
-  {
-    "name": "福州",
-    "position": { "longitude": "119.2978134", "latitude": "26.0785904" }
-  },
-  {
-    "name": "济南",
-    "position": { "longitude": "117.0056", "latitude": "36.6670723" }
-  },
-  {
-    "name": "郑州",
-    "position": { "longitude": "113.6500473", "latitude": "34.7570343" }
-  },
-  {
-    "name": "武汉",
-    "position": { "longitude": "114.2919388", "latitude": "30.5675144" }
-  },
-  {
-    "name": "长沙",
-    "position": { "longitude": "112.9812698", "latitude": "28.2008247" }
-  },
-  {
-    "name": "广州",
-    "position": { "longitude": "113.2614288", "latitude": "23.1189117" }
-  },
-  {
-    "name": "海口",
-    "position": { "longitude": "110.3465118", "latitude": "20.0317936" }
-  },
-  {
-    "name": "成都",
-    "position": { "longitude": "104.0817566", "latitude": "30.6610565" }
-  },
-  {
-    "name": "贵阳",
-    "position": { "longitude": "106.7113724", "latitude": "26.5768738" }
-  },
-  {
-    "name": "昆明",
-    "position": { "longitude": "102.704567", "latitude": "25.0438442" }
-  },
-  {
-    "name": "南昌",
-    "position": { "longitude": "115.8999176", "latitude": "28.6759911" }
-  },
-  {
-    "name": "西安",
-    "position": { "longitude": "108.949028", "latitude": "34.2616844" }
-  },
-  {
-    "name": "西宁",
-    "position": { "longitude": "101.7874527", "latitude": "36.6094475" }
-  },
-  {
-    "name": "兰州",
-    "position": { "longitude": "103.7500534", "latitude": "36.0680389" }
-  },
-  {
-    "name": "南宁",
-    "position": { "longitude": "108.3117676", "latitude": "22.8065434" }
-  },
-  {
-    "name": "乌鲁木齐",
-    "position": { "longitude": "87.6061172", "latitude": "43.7909393" }
-  },
-  {
-    "name": "呼和浩特",
-    "position": { "longitude": "111.6632996", "latitude": "40.8209419" }
-  },
-  {
-    "name": "拉萨",
-    "position": { "longitude": "91.1320496", "latitude": "29.657589" }
-  },
-  {
-    "name": "银川",
-    "position": { "longitude": "106.2719421", "latitude": "38.4680099" }
-  },
-  {
-    "name": "台北",
-    "position": { "longitude": "121.564558", "latitude": "25.03746" }
-  },
-  {
-    "name": "香港",
-    "position": { "longitude": "114.139452", "latitude": "22.391577" }
-  },
-  {
-    "name": "澳门",
-    "position": { "longitude": "113.5678411", "latitude": "22.167654" }
-  },
-  {
-    "name": "合肥",
-    "position": { "longitude": "117.2757034", "latitude": "31.8632545" }
+    "position": { "longitude": 116.3979471, "latitude": 39.9081726 },
+    "risk": "MEDIUM"
   },
   {
     "name": "南京",
-    "position": { "longitude": "118.7727814", "latitude": "32.0476151" }
+    "position": { "longitude": 118.7727814, "latitude": 32.0476151 },
+    "risk": "LOW"
+  },
+  {
+    "name": "成都",
+    "position": { "longitude": 104.0817566, "latitude": 30.6610565 },
+    "risk": "MEDIUM"
+  },
+  {
+    "name": "上海",
+    "position": { "longitude": 121.4692688, "latitude": 31.2381763 },
+    "risk": "MEDIUM"
+  },
+  {
+    "name": "西安",
+    "position": { "longitude": 108.949028, "latitude": 34.2616844 },
+    "risk": "HIGH"
+  },
+  {
+    "name": "武汉",
+    "position": { "longitude": 114.2919388, "latitude": 30.5675144 },
+    "risk": "HIGH"
+  },
+
+  {
+    "name": "郑州",
+    "position": { "longitude": 113.6500473, "latitude": 34.7570343 },
+    "risk": "LOW"
+  },
+  {
+    "name": "济南",
+    "position": { "longitude": 117.0056, "latitude": 36.6670723 },
+    "risk": "LOW"
+  },
+  {
+    "name": "杭州",
+    "position": { "longitude": 120.1592484, "latitude": 30.265995 },
+    "risk": "LOW"
+  },
+  {
+    "name": "太原",
+    "position": { "longitude": 112.5223053, "latitude": 37.8357424 },
+    "risk": "HIGH"
+  },
+  {
+    "name": "天津",
+    "position": { "longitude": 117.2523808, "latitude": 39.1038561 },
+    "risk": "HIGH"
+  },
+  {
+    "name": "重庆",
+    "position": { "longitude": 106.548425, "latitude": 29.5549144 },
+    "risk": "HIGH"
+  },
+  {
+    "name": "兰州",
+    "position": { "longitude": 103.7500534, "latitude": 36.0680389 },
+    "risk": "LOW"
+  },
+  {
+    "name": "石家庄",
+    "position": { "longitude": 114.4897766, "latitude": 38.0451279 },
+    "risk": "MEDIUM"
+  },
+  {
+    "name": "合肥",
+    "position": { "longitude": 117.2757034, "latitude": 31.8632545 },
+    "risk": "MEDIUM"
   }
 ]
