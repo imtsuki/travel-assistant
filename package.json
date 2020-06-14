@@ -24,7 +24,7 @@
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "lint-fix": "yarn --silent lint --fix; exit 0",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
-    "postinstall": "node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build:dll",
+    "postinstall": "patch-package && node -r @babel/register scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build:dll",
     "package": "yarn build && electron-builder build --publish never",
     "package:all": "yarn build && electron-builder build -mwl",
     "package:ci": "yarn postinstall && yarn build && electron-builder --publish always",
@@ -119,6 +119,8 @@
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "sass-loader": "^8.0.2",
@@ -145,6 +147,9 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "portable": {
+      "splashImage": "../../../../resources/splash.bmp"
+    },
     "dmg": {
       "contents": [
         {
