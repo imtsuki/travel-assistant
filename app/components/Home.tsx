@@ -137,18 +137,19 @@ export default function Home() {
       >
         <CardPanel />
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          right: '0px',
-          bottom: '0px',
-          padding: '50px',
-        }}
-      >
-        {[
-          { value: true, icon: <PauseIcon /> },
-          { value: false, icon: <PlayArrowIcon /> },
-        ].map((fab) => (
+
+      {[
+        { value: true, icon: <PauseIcon /> },
+        { value: false, icon: <PlayArrowIcon /> },
+      ].map((fab) => (
+        <div
+          style={{
+            position: 'absolute',
+            right: '0px',
+            bottom: '0px',
+            padding: '50px',
+          }}
+        >
           <Zoom
             in={isRunning === fab.value}
             timeout={transitionDuration}
@@ -169,8 +170,8 @@ export default function Home() {
               {isRunning ? '暂停模拟' : '开始模拟'}
             </Fab>
           </Zoom>
-        ))}
-      </div>
+        </div>
+      ))}
     </>
   );
 }

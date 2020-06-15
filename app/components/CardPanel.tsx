@@ -75,17 +75,40 @@ const useStyles = makeStyles((theme: Theme) =>
 function getStepContent(step: [[string, number], string]) {
   switch (step[1]) {
     case 'PLANE':
-      return `乘坐飞机`;
+      return `乘坐飞机 - 每小时风险值 9`;
     case 'TRAIN':
-      return `乘坐火车`;
+      return `乘坐火车 - 每小时风险值 5`;
     case 'BUS':
-      return `乘坐汽车`;
+      return `乘坐汽车 - 每小时风险值 2`;
     case 'WAIT':
       return '在此城市候车';
     case 'ARRIVED':
       return `到达目的地`;
     default:
       return '未知';
+  }
+}
+
+function getStepTitle(cityName: string) {
+  let city = cities.find((c) => c.name === cityName);
+  if (city) {
+    let risk;
+    switch (city.risk) {
+      case 'LOW':
+        risk = '低风险';
+        break;
+      case 'MEDIUM':
+        risk = '中风险';
+        break;
+      case 'HIGH':
+        risk = '高风险';
+        break;
+      default:
+        risk = '未知风险';
+    }
+    return `${city.name} - ${risk}`;
+  } else {
+    return cityName;
   }
 }
 
@@ -100,6 +123,7 @@ export default function CardPanel() {
   const [strategy, setStrategy] = useState('最少风险策略');
   const [latestTime, setLatestTime] = useState('16:00');
   const [steps, setSteps] = useState([]);
+  const [risk, setRisk] = useState(0);
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -177,6 +201,7 @@ export default function CardPanel() {
           setPolyline(polylines);
           setTiming(timing);
           setSteps(plan.plan);
+          setRisk(plan.risk);
           setExpanded(true);
           return;
         }
@@ -184,6 +209,7 @@ export default function CardPanel() {
       setPolyline([]);
       setTiming([]);
       setSteps([]);
+      setRisk(0);
       setExpanded(false);
       setDialogOpen(true);
     };
@@ -197,7 +223,7 @@ export default function CardPanel() {
           COVID-19 Travel Assistant
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-          by imtsuki
+          数据结构课程设计
         </Typography>
         <form className={classes.form} noValidate autoComplete="off">
           <TextField
@@ -257,10 +283,13 @@ export default function CardPanel() {
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography>该旅行方案总风险值：{risk}</Typography>
           <Stepper orientation="vertical" activeStep={activeStep}>
             {steps.map((step) => (
               <Step key={step}>
-                <StepLabel>{`${step[0][0]} - ${step[0][1]}:00`}</StepLabel>
+                <StepLabel>{`${getStepTitle(step[0][0])} - ${
+                  step[0][1]
+                }:00`}</StepLabel>
                 <StepContent TransitionProps={{ in: true }}>
                   <Typography>{getStepContent(step)}</Typography>
                 </StepContent>
