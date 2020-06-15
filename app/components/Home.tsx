@@ -149,6 +149,7 @@ export default function Home() {
             bottom: '0px',
             padding: '50px',
           }}
+          key={+fab.value}
         >
           <Zoom
             in={isRunning === fab.value}
