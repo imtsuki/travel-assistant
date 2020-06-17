@@ -18,12 +18,13 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AssistantOutlinedIcon from '@material-ui/icons/AssistantOutlined';
+import MUIDataTable from 'mui-datatables';
 import React, { useState } from 'react';
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 import cities from '../data/cities.json';
-
-import PlannerWorker from './planner.worker';
+import routes from '../data/routes.json';
+import PlannerWorker from '../planner.worker';
 
 export const polylineState = atom<{ longitude: number; latitude: number }[]>({
   key: 'polylineState',
@@ -50,16 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
     media: {
       height: 0,
       paddingTop: '56.25%',
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
     },
     form: {
       '& .MuiTextField-root': {
@@ -127,9 +118,9 @@ export default function CardPanel() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
+  const [cityListOpen, setCityListOpen] = useState(false);
+  const [timetableOpen, setTimetableOpen] = useState(false);
+  const [logOpen, setLogOpen] = useState(false);
 
   const handleSourceChange = (event: React.ChangeEvent<{ value: string }>) => {
     setSource(event.target.value);
@@ -215,6 +206,44 @@ export default function CardPanel() {
     };
   };
 
+  const tableOptions = {
+    print: false,
+    rowsPerPage: 5,
+    rowsPerPageOptions: [5, 15, 100],
+    textLabels: {
+      body: {
+        noMatch: '没有匹配数据',
+        toolTip: '排序',
+        columnHeaderTooltip: (column: any) => `按照${column.label}排序`,
+      },
+      pagination: {
+        next: '下一页',
+        previous: '上一页',
+        rowsPerPage: '每页数据行数',
+        displayRows: 'of',
+      },
+      toolbar: {
+        search: '搜索',
+        downloadCsv: '导出 CSV 文件',
+        viewColumns: '查看列',
+        filterTable: '筛选',
+      },
+      filter: {
+        all: '(全部)',
+        title: '筛选',
+        reset: '重置',
+      },
+      viewColumns: {
+        title: '查看列',
+      },
+      selectedRows: {
+        text: '行被选择',
+        delete: '删除',
+        deleteAria: '删除所选列',
+      },
+    },
+  };
+
   return (
     <Card className={classes.root} elevation={4}>
       <CardContent>
@@ -225,6 +254,10 @@ export default function CardPanel() {
         <Typography variant="subtitle1" color="textSecondary" gutterBottom>
           数据结构课程设计
         </Typography>
+        <Button onClick={() => setCityListOpen(true)}>查看城市列表</Button>
+        <Button onClick={() => setTimetableOpen(true)}>查看时刻表</Button>
+        <Button onClick={() => setLogOpen(true)}>查看日志</Button>
+
         <form className={classes.form} noValidate autoComplete="off">
           <TextField
             id="source"
@@ -298,7 +331,7 @@ export default function CardPanel() {
           </Stepper>
         </CardContent>
       </Collapse>
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>没有搜寻到可行的旅行规划方案</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -306,7 +339,85 @@ export default function CardPanel() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDialogClose} color="primary" autoFocus>
+          <Button
+            onClick={() => setDialogOpen(false)}
+            color="primary"
+            autoFocus
+          >
+            确定
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={cityListOpen} onClose={() => setCityListOpen(false)}>
+        <DialogContent>
+          <MUIDataTable
+            title="城市列表"
+            columns={[
+              { label: '城市名称', name: 'name' },
+              { label: '风险等级', name: 'risk' },
+            ]}
+            data={cities}
+            options={{
+              ...tableOptions,
+              downloadOptions: { filename: 'cities.csv' },
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setCityListOpen(false)}
+            color="primary"
+            autoFocus
+          >
+            确定
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={timetableOpen} onClose={() => setTimetableOpen(false)}>
+        <DialogContent>
+          <MUIDataTable
+            title="旅行时刻表"
+            columns={[
+              { label: '始发城市', name: 'from' },
+              { label: '到达城市', name: 'to' },
+              { label: '始发时间', name: 'startTime' },
+              { label: '到达时间', name: 'endTime' },
+              { label: '交通工具类型', name: 'type' },
+            ]}
+            data={routes}
+            options={{
+              ...tableOptions,
+              downloadOptions: { filename: 'timetable.csv' },
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setTimetableOpen(false)}
+            color="primary"
+            autoFocus
+          >
+            确定
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={logOpen} onClose={() => setLogOpen(false)}>
+        <DialogContent>
+          <MUIDataTable
+            title="系统日志"
+            columns={[
+              { label: '时间戳', name: 'timestamp' },
+              { label: '消息', name: 'message' },
+            ]}
+            data={[]}
+            options={{
+              ...tableOptions,
+              downloadOptions: { filename: 'log.csv' },
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setLogOpen(false)} color="primary" autoFocus>
             确定
           </Button>
         </DialogActions>

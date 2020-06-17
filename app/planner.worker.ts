@@ -1,8 +1,8 @@
 import log from 'electron-log';
 import { Dictionary } from 'typescript-collections';
 
-import cities from '../data/cities.json';
-import routes from '../data/routes.json';
+import cities from './data/cities.json';
+import routes from './data/routes.json';
 
 const ctx: Worker = self as any;
 
@@ -25,8 +25,10 @@ interface Edge {
   type: string;
 }
 
+type CityTimeNode = [string, number];
+
 class Graph {
-  matrix: Dictionary<[[string, number], [string, number]], Edge>;
+  matrix: Dictionary<[CityTimeNode, CityTimeNode], Edge>;
 
   constructor(private cities: City[]) {
     this.matrix = new Dictionary();
@@ -50,7 +52,7 @@ class Graph {
     }
   }
 
-  getWeight(from: [string, number], to: [string, number]) {
+  getWeight(from: CityTimeNode, to: CityTimeNode) {
     if (from[0] === to[0]) {
       let risk = this.cities.find((c) => c.name == from[0])?.risk;
       let riskParam;
@@ -92,7 +94,7 @@ class Graph {
     }
   }
 
-  getRouteType(from: [string, number], to: [string, number]) {
+  getRouteType(from: CityTimeNode, to: CityTimeNode) {
     if (from[0] === to[0]) {
       return 'WAIT';
     } else {
@@ -109,9 +111,9 @@ for (let route of routes) {
 }
 
 function dijkstra(graph: Graph, source: string, destination: string) {
-  let dist = new Dictionary<[string, number], number>();
-  let prev = new Dictionary<[string, number], [[string, number], string]>();
-  let Q = new Array<[string, number]>();
+  let dist = new Dictionary<CityTimeNode, number>();
+  let prev = new Dictionary<CityTimeNode, [CityTimeNode, string]>();
+  let Q = new Array<CityTimeNode>();
   for (let city of cities) {
     for (let i = 6; i <= 23; i++) {
       dist.setValue([city.name, i], Infinity);
