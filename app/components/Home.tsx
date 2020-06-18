@@ -21,11 +21,17 @@ import CardPanel, {
   activeStepState,
 } from './CardPanel';
 
+/**
+ * 当前模拟坐标的状态
+ */
 export const positionState = atom<{ longitude: number; latitude: number }>({
   key: 'positionState',
   default: { longitude: 120, latitude: 35 },
 });
 
+/**
+ * 程序主界面。
+ */
 export default function Home() {
   const theme = useTheme();
 

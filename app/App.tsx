@@ -3,12 +3,12 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { RecoilRoot } from 'recoil';
 
-import Routes from './Routes';
+import Home from './components/Home';
 
 const App = () => (
   <RecoilRoot>
     <CssBaseline />
-    <Routes />
+    <Home />
   </RecoilRoot>
 );
 

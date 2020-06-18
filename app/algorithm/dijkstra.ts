@@ -4,6 +4,15 @@ import cities from '../data/cities.json';
 
 import { Graph, CityTimeNode } from './graph';
 
+/**
+ * Dijkstra 算法计算最短路径。
+ *
+ * @param graph 图数据
+ * @param source 源结点，即始发城市
+ * @param destination 终点。即到达城市
+ *
+ * @returns 返回在所有可行时间到达的最短路径（风险值意义上的）
+ */
 export function dijkstra(graph: Graph, source: string, destination: string) {
   let dist = new Dictionary<CityTimeNode, number>();
   let prev = new Dictionary<CityTimeNode, [CityTimeNode, string]>();

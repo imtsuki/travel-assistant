@@ -32,16 +32,25 @@ import cities from '../data/cities.json';
 import routes from '../data/routes.json';
 import { logItemsState, log } from '../logging';
 
+/**
+ * 地图绘制路线状态
+ */
 export const polylineState = atom<{ longitude: number; latitude: number }[]>({
   key: 'polylineState',
   default: [],
 });
 
+/**
+ * 模拟时间节点状态
+ */
 export const timingState = atom<number[]>({
   key: 'timingState',
   default: [],
 });
 
+/**
+ * 当前模拟步骤状态
+ */
 export const activeStepState = atom<number>({
   key: 'activeStepState',
   default: 0,
@@ -69,6 +78,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/**
+ * 获得当前步骤的字符串表示。
+ * @param step 当前步骤
+ */
 function getStepContent(step: [[string, number], string]) {
   switch (step[1]) {
     case 'PLANE':
@@ -86,6 +99,10 @@ function getStepContent(step: [[string, number], string]) {
   }
 }
 
+/**
+ * 获得当前城市风险值的字符串表示。
+ * @param cityName 城市名称
+ */
 function getStepTitle(cityName: string) {
   let city = cities.find((c) => c.name === cityName);
   if (city) {
@@ -130,28 +147,43 @@ export default function CardPanel() {
   const [timetableOpen, setTimetableOpen] = useState(false);
   const [logOpen, setLogOpen] = useState(false);
 
+  /**
+   * 用户输入始发城市处理函数
+   */
   const handleSourceChange = (event: React.ChangeEvent<{ value: string }>) => {
     setSource(event.target.value);
   };
 
+  /**
+   * 用户输入到达城市处理函数
+   */
   const handleDestinationChange = (
     event: React.ChangeEvent<{ value: string }>
   ) => {
     setDestination(event.target.value);
   };
 
+  /**
+   * 用户选择规划策略处理函数
+   */
   const handleStrategyChange = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
     setStrategy(event.target.value as string);
   };
 
+  /**
+   * 用户输入限时最少风险策略的最晚到达时间处理函数
+   */
   const handleLatestTimeChange = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
     setLatestTime(event.target.value as string);
   };
 
+  /**
+   * 用户点击搜索路线按钮处理函数，点击开始规划
+   */
   const handleSearchClick = () => {
     let latestHour = 23;
     let tmp = latestTime.match(/^(\d+):(\d+)$/);
