@@ -20,11 +20,17 @@ import Typography from '@material-ui/core/Typography';
 import AssistantOutlinedIcon from '@material-ui/icons/AssistantOutlined';
 import MUIDataTable from 'mui-datatables';
 import React, { useState } from 'react';
-import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
+import {
+  atom,
+  useSetRecoilState,
+  useRecoilValue,
+  useRecoilState,
+} from 'recoil';
 
+import PlannerWorker from '../algorithm/planner.worker';
 import cities from '../data/cities.json';
 import routes from '../data/routes.json';
-import PlannerWorker from '../planner.worker';
+import { logItemsState, log } from '../logging';
 
 export const polylineState = atom<{ longitude: number; latitude: number }[]>({
   key: 'polylineState',
@@ -118,6 +124,8 @@ export default function CardPanel() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const [logItems, setLogItems] = useRecoilState(logItemsState);
+
   const [cityListOpen, setCityListOpen] = useState(false);
   const [timetableOpen, setTimetableOpen] = useState(false);
   const [logOpen, setLogOpen] = useState(false);
@@ -151,6 +159,13 @@ export default function CardPanel() {
       latestHour = parseInt(tmp[1]);
     }
 
+    setLogItems((logItems) => [
+      ...logItems,
+      log(
+        `开始旅行规划（${strategy}）：始发城市${source}，到达城市${destination}`
+      ),
+    ]);
+
     worker.postMessage({
       source: source,
       destination: destination,
@@ -165,6 +180,11 @@ export default function CardPanel() {
           return plan.arrivalTime <= latestHour;
         });
       }
+
+      setLogItems((logItems) => [
+        ...logItems,
+        log(`规划算法返回了 ${plans.length} 个可行方案`),
+      ]);
 
       console.log(plans);
 
@@ -189,6 +209,12 @@ export default function CardPanel() {
               timing.push(edge[0][1]);
             }
           }
+          setLogItems((logItems) => [
+            ...logItems,
+            log(
+              `根据${strategy}，选择了风险值为 ${plan.risk} 的方案：[${plan.plan}]`
+            ),
+          ]);
           setPolyline(polylines);
           setTiming(timing);
           setSteps(plan.plan);
@@ -409,7 +435,7 @@ export default function CardPanel() {
               { label: '时间戳', name: 'timestamp' },
               { label: '消息', name: 'message' },
             ]}
-            data={[]}
+            data={logItems}
             options={{
               ...tableOptions,
               downloadOptions: { filename: 'log.csv' },

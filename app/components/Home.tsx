@@ -13,6 +13,7 @@ import { useBoolean, useInterval } from 'react-use';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import cities from '../data/cities.json';
+import { logItemsState, log } from '../logging';
 
 import CardPanel, {
   polylineState,
@@ -38,6 +39,8 @@ export default function Home() {
 
   const [isRunning, toggleIsRunning] = useBoolean(false);
 
+  const setLogItems = useSetRecoilState(logItemsState);
+
   useInterval(
     () => {
       setTime(time + delay / 1000);
@@ -59,6 +62,7 @@ export default function Home() {
       setTime(6);
       toggleIsRunning(false);
       setActiveStep(timing.length);
+      setLogItems((logItems) => [...logItems, log(`用户模拟结束`)]);
     },
     isRunning ? delay : null
   );
@@ -165,7 +169,13 @@ export default function Home() {
               color="primary"
               variant="extended"
               aria-label="add"
-              onClick={toggleIsRunning}
+              onClick={() => {
+                setLogItems((logItems) => [
+                  ...logItems,
+                  log(isRunning ? `用户暂停了模拟` : `用户开始进行模拟`),
+                ]);
+                toggleIsRunning();
+              }}
             >
               {fab.icon}
               {isRunning ? '暂停模拟' : '开始模拟'}
