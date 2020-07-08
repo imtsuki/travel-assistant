@@ -68,23 +68,23 @@ export class Graph {
    * 交通工具分为飞机 (9)、火车 (5)、汽车 (2)。
    */
   getWeight(from: CityTimeNode, to: CityTimeNode) {
+    let risk = this.cities.find((c) => c.name == from[0])?.risk;
+    let cityRiskParam;
+    switch (risk) {
+      case 'LOW':
+        cityRiskParam = 0.2;
+        break;
+      case 'MEDIUM':
+        cityRiskParam = 0.5;
+        break;
+      case 'HIGH':
+        cityRiskParam = 0.9;
+        break;
+      default:
+        throw new Error(`Unknown risk level ${risk}`);
+    }
     if (from[0] === to[0]) {
-      let risk = this.cities.find((c) => c.name == from[0])?.risk;
-      let riskParam;
-      switch (risk) {
-        case 'LOW':
-          riskParam = 0.2;
-          break;
-        case 'MEDIUM':
-          riskParam = 0.5;
-          break;
-        case 'HIGH':
-          riskParam = 0.9;
-          break;
-        default:
-          throw new Error(`Unknown risk level ${risk}`);
-      }
-      return from[1] < to[1] ? (to[1] - from[1]) * riskParam : Infinity;
+      return from[1] < to[1] ? (to[1] - from[1]) * cityRiskParam : Infinity;
     } else {
       let edge = this.matrix.getValue([from, to]);
       if (edge) {
@@ -102,7 +102,7 @@ export class Graph {
           default:
             throw new Error(`Unknown route type ${edge.type}`);
         }
-        return edge.time * riskParam;
+        return cityRiskParam * edge.time * riskParam;
       } else {
         return Infinity;
       }
